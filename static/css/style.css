@@ -1453,13 +1453,10 @@ nav ul li a.active {
     box-shadow: 0 0 0 3px rgba(230, 0, 18, 0.1);
 }
 
+
 .filter-select:hover {
     border-color: var(--primary-color);
 }
-
-
-
-
 
 
 /*для корзины  КОРЗИНА  */
