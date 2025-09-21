@@ -1,0 +1,558 @@
+{% extends "base.html" %}
+
+{% block title %}Оформление заказа - AutoPoizon{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumbs">
+        <a href="{{ url_for('index') }}">Главная</a>
+        <span class="separator">></span>
+        <a href="{{ url_for('cart') }}">Корзина</a>
+        <span class="separator">></span>
+        <span>Оформление заказа</span>
+    </div>
+    
+    <h1 class="page-title">Оформление заказа</h1>
+    
+    <div class="checkout-container">
+        <div class="checkout-steps">
+            <div class="step active">
+                <span class="step-number">1</span>
+                <span class="step-title">Доставка</span>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <span class="step-title">Оплата</span>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <span class="step-title">Подтверждение</span>
+            </div>
+        </div>
+        
+        <div class="checkout-content">
+            <div class="checkout-form">
+                <h2 class="form-title">Данные доставки</h2>
+                
+                <div class="address-section">
+                    <h3>Адрес доставки</h3>
+                    <div class="address-card selected">
+                        <div class="address-details">
+                            <p><strong>{{ order.address.city }}, {{ order.address.street }}</strong></p>
+                            <p>Почтовый индекс: {{ order.address.postal_code }}</p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm">Изменить</button>
+                    </div>
+                </div>
+                
+                <div class="delivery-methods">
+                    <h3>Способ доставки</h3>
+                    <div class="delivery-options">
+                        <label class="delivery-option selected">
+                            <input type="radio" name="delivery" value="courier" checked>
+                            <div class="option-content">
+                                <div class="option-header">
+                                    <h4>Курьерская доставка</h4>
+                                    <span class="price">Бесплатно</span>
+                                </div>
+                                <p>Доставка до двери в течение 2-3 дней</p>
+                                <span class="delivery-time">📦 Доставка: 2-3 дня</span>
+                            </div>
+                        </label>
+                        
+                        <label class="delivery-option">
+                            <input type="radio" name="delivery" value="express">
+                            <div class="option-content">
+                                <div class="option-header">
+                                    <h4>Экспресс-доставка</h4>
+                                    <span class="price">500 руб.</span>
+                                </div>
+                                <p>Доставка в течение 24 часов</p>
+                                <span class="delivery-time">🚀 Доставка: 24 часа</span>
+                            </div>
+                        </label>
+                        
+                        <label class="delivery-option">
+                            <input type="radio" name="delivery" value="pickup">
+                            <div class="option-content">
+                                <div class="option-header">
+                                    <h4>Самовывоз</h4>
+                                    <span class="price">Бесплатно</span>
+                                </div>
+                                <p>Забрать из пункта выдачи</p>
+                                <span class="delivery-time">🏪 Самовывоз: 1-2 дня</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Контактная информация</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>ФИО *</label>
+                            <input type="text" placeholder="Иванов Иван Иванович" value="Иванова Анна Сергеевна">
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон *</label>
+                            <input type="tel" placeholder="+7 (999) 123-45-67" value="+7 (999) 123-45-67">
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" placeholder="email@example.com" value="anna.ivanova@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Компания</label>
+                            <input type="text" placeholder="Название компании" value="ООО 'АвтоСервис'">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="{{ url_for('cart') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        Вернуться в корзину
+                    </a>
+                    <button class="btn btn-primary" id="continue-to-payment">
+                        Продолжить к оплате
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="order-summary">
+                <div class="summary-card">
+                    <h3>Ваш заказ</h3>
+                    
+                    <div class="order-items">
+                        {% for item in order.items %}
+                        <div class="order-item">
+                            <div class="item-info">
+                                <h4>{{ item.name }}</h4>
+                                <span class="quantity">×{{ item.quantity }}</span>
+                            </div>
+                            <span class="item-price">{{ item.total }} руб.</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Подытог:</span>
+                            <span>{{ order.subtotal }} руб.</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Доставка:</span>
+                            <span class="free-shipping">Бесплатно</span>
+                        </div>
+                        <div class="summary-row discount">
+                            <span>Скидка:</span>
+                            <span>-{{ order.discount }} руб.</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total-row">
+                            <span>Итого:</span>
+                            <span class="final-price">{{ order.total }} руб.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="security-notice">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Безопасная оплата • Гарантия возврата</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .checkout-container {
+        margin-top: 2rem;
+    }
+    
+    .checkout-steps {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 3rem;
+        gap: 4rem;
+    }
+    
+    .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+    }
+    
+    .step.active {
+        opacity: 1;
+    }
+    
+    .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--light-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: var(--dark-gray);
+    }
+    
+    .step.active .step-number {
+        background: var(--primary-color);
+        color: white;
+    }
+    
+    .step-title {
+        font-weight: 500;
+        color: var(--dark-gray);
+    }
+    
+    .checkout-content {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 3rem;
+    }
+    
+    .checkout-form {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-title {
+        color: var(--secondary-color);
+        margin-bottom: 2rem;
+        font-size: 1.5rem;
+    }
+    
+    .address-section,
+    .delivery-methods,
+    .contact-info {
+        margin-bottom: 2.5rem;
+    }
+    
+    .address-section h3,
+    .delivery-methods h3,
+    .contact-info h3 {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+    
+    .address-card {
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: between;
+        align-items: center;
+    }
+    
+    .address-card.selected {
+        border-color: var(--primary-color);
+        background: rgba(230, 0, 18, 0.05);
+    }
+    
+    .address-details {
+        flex: 1;
+    }
+    
+    .delivery-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .delivery-option {
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .delivery-option:hover {
+        border-color: var(--primary-color);
+    }
+    
+    .delivery-option.selected {
+        border-color: var(--primary-color);
+        background: rgba(230, 0, 18, 0.05);
+    }
+    
+    .delivery-option input[type="radio"] {
+        display: none;
+    }
+    
+    .option-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .option-header h4 {
+        margin: 0;
+        color: var(--secondary-color);
+    }
+    
+    .price {
+        color: var(--primary-color);
+        font-weight: bold;
+    }
+    
+    .delivery-option p {
+        margin: 0 0 0.5rem 0;
+        color: var(--dark-gray);
+    }
+    
+    .delivery-time {
+        font-size: 0.9rem;
+        color: var(--dark-gray);
+    }
+    
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-group label {
+        font-weight: 600;
+        color: var(--dark-gray);
+    }
+    
+    .form-group input {
+        padding: 1rem;
+        border: 2px solid var(--medium-gray);
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(230, 0, 18, 0.1);
+    }
+    
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--light-gray);
+    }
+    
+    .order-summary {
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+    }
+    
+    .order-items {
+        margin-bottom: 1.5rem;
+    }
+    
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--light-gray);
+    }
+    
+    .item-info {
+        flex: 1;
+    }
+    
+    .item-info h4 {
+        margin: 0 0 0.3rem 0;
+        color: var(--secondary-color);
+        font-size: 1rem;
+    }
+    
+    .quantity {
+        font-size: 0.9rem;
+        color: var(--dark-gray);
+    }
+    
+    .item-price {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    
+    .summary-totals {
+        margin-bottom: 1.5rem;
+    }
+    
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+        padding: 0.3rem 0;
+    }
+    
+    .free-shipping {
+        color: #4CAF50;
+        font-weight: 600;
+    }
+    
+    .discount {
+        color: #4CAF50;
+        font-weight: 600;
+    }
+    
+    .summary-divider {
+        height: 2px;
+        background: var(--light-gray);
+        margin: 1rem 0;
+    }
+    
+    .total-row {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--secondary-color);
+    }
+    
+    .final-price {
+        color: var(--primary-color);
+        font-size: 1.4rem;
+    }
+    
+    .security-notice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        color: var(--dark-gray);
+        font-size: 0.9rem;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--light-gray);
+    }
+    
+    @media (max-width: 968px) {
+        .checkout-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .order-summary {
+            order: -1;
+            position: static;
+        }
+        
+        .checkout-steps {
+            gap: 2rem;
+        }
+        
+        .form-actions {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .checkout-steps {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .step {
+            flex-direction: row;
+            gap: 1rem;
+        }
+        
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .address-card {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Выбор способа доставки
+        const deliveryOptions = document.querySelectorAll('.delivery-option');
+        
+        deliveryOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                deliveryOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                
+                // Обновление стоимости доставки в итогах
+                updateShippingPrice(this.querySelector('.price').textContent);
+            });
+        });
+        
+        // Переход к оплате
+        const continueBtn = document.getElementById('continue-to-payment');
+        
+        continueBtn.addEventListener('click', function() {
+            // Валидация формы
+            const isValid = validateForm();
+            if (isValid) {
+                // Переход к следующему шагу
+                window.location.href = "/checkout/payment";
+            }
+        });
+        
+        function validateForm() {
+            const inputs = document.querySelectorAll('.form-group input[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#f44336';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            
+            if (!isValid) {
+                alert('Пожалуйста, заполните все обязательные поля');
+            }
+            
+            return isValid;
+        }
+        
+        function updateShippingPrice(priceText) {
+            const shippingElement = document.querySelector('.summary-row:nth-child(2) span:last-child');
+            if (priceText === 'Бесплатно') {
+                shippingElement.textContent = 'Бесплатно';
+                shippingElement.className = 'free-shipping';
+            } else {
+                shippingElement.textContent = priceText;
+                shippingElement.className = '';
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Результаты поиска - AutoPoizon{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumbs">
+        <a href="{{ url_for('index') }}">Главная</a> > 
+        <span>Результаты поиска</span>
+    </div>
+    
+    <h1 class="page-title">Результаты поиска</h1>
+    
+    <div class="search-info">
+        <p>По запросу <strong>"{{ query }}"</strong> найдено {{ results|length }} запчастей</p>
+    </div>
+    
+    {% if results %}
+    <div class="parts-grid">
+        {% for part in results %}
+        <div class="part-card">
+            <div class="part-image">
+                <img src="{{ url_for('static', filename='images/parts/' + part.image) }}" alt="{{ part.name }}" onerror="this.src='https://via.placeholder.com/300x200?text={{ part.name }}'">
+            </div>
+            <div class="part-info">
+                <div class="part-name">{{ part.name }}</div>
+                <div class="part-number">Артикул: {{ part.part_number }}</div>
+                <div class="part-compatibility">
+                    Совместимость: 
+                    {% for vin in part.vin_compatibility %}
+                    <span class="vin-tag">{{ vin }}</span>
+                    {% endfor %}
+                </div>
+                <div class="part-price">{{ part.price }} руб.</div>
+                <div class="part-actions">
+                    <button class="btn btn-primary">В корзину</button>
+                    <button class="btn btn-secondary">Подробнее</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-results">
+        <p>По вашему запросу ничего не найдено. Попробуйте изменить критерии поиска.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Вернуться на главную</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Добавление в корзину на странице результатов
+        const addToCartButtons = document.querySelectorAll('.btn-primary');
+        const cartCount = document.querySelector('.cart-count');
+        let cartItems = 0;
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                cartItems++;
+                if (cartCount) {
+                    cartCount.textContent = cartItems;
+                }
+                
+                // Анимация добавления в корзину
+                const originalText = this.textContent;
+                this.textContent = 'Добавлено!';
+                this.style.backgroundColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    this.textContent = originalText;
+                    this.style.backgroundColor = '';
+                }, 1500);
+            });
+        });
+    });
+</script>
+{% endblock %}

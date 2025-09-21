@@ -1,0 +1,402 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль - AutoPoizon{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumbs">
+        <a href="{{ url_for('index') }}">Главная</a>
+        <span class="separator">></span>
+        <span>Профиль</span>
+    </div>
+    
+    <h1 class="page-title">Личный кабинет</h1>
+    
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-avatar">
+                <div class="avatar-placeholder">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>{{ user.full_name }}</h3>
+                <p>Поставщик автозапчастей</p>
+            </div>
+            
+            <nav class="profile-nav">
+                <a href="#personal" class="profile-nav-item active">
+                    <i class="fas fa-user-circle"></i>
+                    Личные данные
+                </a>
+                <a href="#orders" class="profile-nav-item">
+                    <i class="fas fa-shopping-bag"></i>
+                    Мои заказы
+                </a>
+                <a href="#addresses" class="profile-nav-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Адреса доставки
+                </a>
+                <a href="#settings" class="profile-nav-item">
+                    <i class="fas fa-cog"></i>
+                    Настройки
+                </a>
+            </nav>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-section" id="personal">
+                <h2 class="profile-section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Личная информация
+                </h2>
+                
+                <div class="profile-info-grid">
+                    <div class="info-item">
+                        <label>ФИО:</label>
+                        <span>{{ user.full_name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Email:</label>
+                        <span>{{ user.email }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Телефон:</label>
+                        <span>{{ user.phone }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Компания:</label>
+                        <span>{{ user.company }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>ИНН:</label>
+                        <span>{{ user.inn }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-section" id="addresses">
+                <h2 class="profile-section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Адрес доставки
+                </h2>
+                
+                <div class="address-card">
+                    <div class="address-header">
+                        <h4>Основной адрес</h4>
+                        <span class="default-badge">По умолчанию</span>
+                    </div>
+                    <div class="address-details">
+                        <p><i class="fas fa-city"></i> {{ user.address.city }}</p>
+                        <p><i class="fas fa-road"></i> {{ user.address.street }}</p>
+                        <p><i class="fas fa-mail-bulk"></i> Индекс: {{ user.address.postal_code }}</p>
+                    </div>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-edit"></i>
+                        Изменить адрес
+                    </button>
+                </div>
+            </div>
+            
+            <div class="profile-section" id="preferences">
+                <h2 class="profile-section-title">
+                    <i class="fas fa-truck"></i>
+                    Предпочтения доставки
+                </h2>
+                
+                <div class="preferences-grid">
+                    <div class="preference-item">
+                        <div class="preference-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <div class="preference-info">
+                            <h4>Курьерская доставка</h4>
+                            <p>Доставка до двери</p>
+                            <span class="status-badge {{ 'active' if user.delivery_preferences.courier else 'inactive' }}">
+                                {{ 'Включено' if user.delivery_preferences.courier else 'Выключено' }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="preference-item">
+                        <div class="preference-icon">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="preference-info">
+                            <h4>Самовывоз</h4>
+                            <p>Забрать из пункта выдачи</p>
+                            <span class="status-badge {{ 'active' if user.delivery_preferences.pickup else 'inactive' }}">
+                                {{ 'Включено' if user.delivery_preferences.pickup else 'Выключено' }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="preference-item">
+                        <div class="preference-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="preference-info">
+                            <h4>Экспресс-доставка</h4>
+                            <p>Доставка в течение 24 часов</p>
+                            <span class="status-badge {{ 'active' if user.delivery_preferences.express_delivery else 'inactive' }}">
+                                {{ 'Включено' if user.delivery_preferences.express_delivery else 'Выключено' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Сохранить изменения
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-sync-alt"></i>
+                    Обновить данные
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    .profile-container {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .profile-sidebar {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        height: fit-content;
+    }
+    
+    .profile-avatar {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .avatar-placeholder {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), #ff3366);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem auto;
+        color: white;
+        font-size: 2rem;
+    }
+    
+    .profile-avatar h3 {
+        margin: 0.5rem 0;
+        color: var(--secondary-color);
+    }
+    
+    .profile-avatar p {
+        color: var(--dark-gray);
+        margin: 0;
+    }
+    
+    .profile-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .profile-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem;
+        text-decoration: none;
+        color: var(--text-color);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .profile-nav-item:hover,
+    .profile-nav-item.active {
+        background: var(--light-gray);
+        color: var(--primary-color);
+    }
+    
+    .profile-content {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .profile-section {
+        margin-bottom: 2.5rem;
+    }
+    
+    .profile-section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.4rem;
+    }
+    
+    .profile-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.2rem;
+    }
+    
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .info-item label {
+        font-weight: 600;
+        color: var(--dark-gray);
+        font-size: 0.9rem;
+    }
+    
+    .info-item span {
+        font-size: 1.1rem;
+        color: var(--text-color);
+    }
+    
+    .address-card {
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        padding: 1.5rem;
+        max-width: 400px;
+    }
+    
+    .address-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .default-badge {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .address-details p {
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .preferences-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .preference-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.2rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .preference-item:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+    
+    .preference-icon {
+        width: 50px;
+        height: 50px;
+        background: var(--light-gray);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+    }
+    
+    .preference-info h4 {
+        margin: 0 0 0.3rem 0;
+        color: var(--secondary-color);
+    }
+    
+    .preference-info p {
+        margin: 0 0 0.5rem 0;
+        color: var(--dark-gray);
+        font-size: 0.9rem;
+    }
+    
+    .status-badge {
+        padding: 0.2rem 0.8rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .status-badge.active {
+        background: #4CAF50;
+        color: white;
+    }
+    
+    .status-badge.inactive {
+        background: #f44336;
+        color: white;
+    }
+    
+    .profile-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--light-gray);
+    }
+    
+    @media (max-width: 968px) {
+        .profile-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .profile-sidebar {
+            order: 2;
+        }
+        
+        .profile-content {
+            order: 1;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .profile-info-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .preferences-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .profile-actions {
+            flex-direction: column;
+        }
+    }
+</style>
+{% endblock %}
