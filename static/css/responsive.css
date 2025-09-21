@@ -1,0 +1,193 @@
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    
+    .search-tabs {
+        flex-direction: column;
+    }
+    
+    .search-tab {
+        text-align: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .brands-grid,
+    .models-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .years-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .parts-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2.5rem 0.5rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 1.7rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .years-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .search-container {
+        padding: 1rem;
+    }
+    
+    .search-box {
+        flex-direction: column;
+    }
+    
+    .search-box input {
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .search-box button {
+        border-radius: 4px;
+        padding: 0.8rem;
+    }
+}
+
+/* Responsive Design for Header */
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 0.8rem 20px;
+    }
+    
+    nav ul {
+        gap: 2rem;
+    }
+    
+    nav ul li a {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 900px) {
+    nav ul {
+        gap: 1.5rem;
+    }
+    
+    .logo {
+        font-size: 1.8rem;
+    }
+    
+    .logo-flag {
+        width: 25px;
+        height: 17px;
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding: 1rem 20px;
+        gap: 1rem;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    nav ul {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li a {
+        font-size: 1rem;
+        padding: 0.3rem 0;
+    }
+    
+    .header-actions {
+        gap: 1rem;
+    }
+    
+    .search-icon i,
+    .user-icon i,
+    .cart-icon i {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.8rem;
+    }
+    
+    .logo-flag {
+        width: 22px;
+        height: 15px;
+        margin-right: 6px;
+    }
+    
+    nav ul {
+        gap: 0.8rem;
+    }
+    
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+    
+    .header-actions {
+        gap: 0.8rem;
+    }
+    
+    .search-icon,
+    .user-icon,
+    .cart-icon {
+        padding: 0.5rem;
+    }
+    
+    .search-icon i,
+    .user-icon i,
+    .cart-icon i {
+        font-size: 1.2rem;
+    }
+    
+    .cart-count {
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+    }
+}

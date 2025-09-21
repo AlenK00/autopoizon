@@ -1,0 +1,37 @@
+[
+    {
+        "id": "chery_tiggo",
+        "brand_id": "chery",
+        "name": "Tiggo",
+        "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022],
+        "image": "chery_tiggo.jpg"
+    },
+    {
+        "id": "geely_coolray",
+        "brand_id": "geely",
+        "name": "Coolray",
+        "years": [2019, 2020, 2021, 2022],
+        "image": "geely_coolray.jpg"
+    },
+    {
+        "id": "haval_h6",
+        "brand_id": "haval",
+        "name": "H6",
+        "years": [2017, 2018, 2019, 2020, 2021, 2022],
+        "image": "haval_h6.jpg"
+    },
+    {
+        "id": "changan_cs75",
+        "brand_id": "changan",
+        "name": "CS75",
+        "years": [2018, 2019, 2020, 2021, 2022],
+        "image": "changan_cs75.jpg"
+    },
+    {
+        "id": "byd_song",
+        "brand_id": "byd",
+        "name": "Song",
+        "years": [2019, 2020, 2021, 2022],
+        "image": "byd_song.jpg"
+    }
+]

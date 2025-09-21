@@ -1,0 +1,60 @@
+[
+    {
+        "id": "part_001",
+        "name": "Тормозные колодки",
+        "part_number": "CH-TG-001",
+        "brand_id": "chery",
+        "model_id": "chery_tiggo",
+        "years": [2016, 2017, 2018, 2019, 2020],
+        "price": 4500,
+        "image": "brake_pads.jpg",
+        "vin_compatibility": ["LVVDB11B8BD000123", "LVVDB11B8BD000124", "LVVDB11B8BD000125"]
+    },
+    {
+        "id": "part_002",
+        "name": "Масляный фильтр",
+        "part_number": "CH-TG-002",
+        "brand_id": "chery",
+        "model_id": "chery_tiggo",
+        "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022],
+        "price": 1200,
+        "image": "oil_filter.jpg",
+        "vin_compatibility": ["LVVDB11B8BD000123", "LVVDB11B8BD000126", "LVVDB11B8BD000127"]
+    },
+    {
+        "id": "part_003",
+        "name": "Свечи зажигания",
+        "part_number": "GL-CR-001",
+        "brand_id": "geely",
+        "model_id": "geely_coolray",
+        "years": [2019, 2020, 2021, 2022],
+        "price": 2800,
+        "image": "spark_plugs.jpg",
+        "vin_compatibility": ["LB3774LSXLS000456", "LB3774LSXLS000457", "LB3774LSXLS000458"]
+    },
+    {
+        "id": "part_004",
+        "name": "Амортизатор передний",
+        "part_number": "HV-H6-001",
+        "brand_id": "haval",
+        "model_id": "h6",
+        "category": "Подвеска",
+        "years": [2017, 2018, 2019, 2020, 2021, 2022],
+        "price": 8900,
+        "image": "part_4.jpg",
+        "vin_compatibility": ["LZWADAGA7JD000789", "LZWADAGA7JD000790"]
+    },
+    {
+        "id": "part_005",
+        "name": "Ремень ГРМ",
+        "part_number": "CA-CS75-001",
+        "brand_id": "changan",
+        "model_id": "cs75",
+        "category": "Двигатель",
+        "years": [2018, 2019, 2020, 2021, 2022],
+        "price": 5300,
+        "image": "part_5.jpg",
+        "vin_compatibility": ["LSJA123456789012", "LSJA123456789013"]
+    }
+
+]

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Автозапчасти для китайских автомобилей</h1>
+        <p>Найдите нужные запчасти по VIN-номеру или названию детали</p>
+        
+        <div class="unified-search">
+            <div class="unified-search-tabs">
+                <div class="unified-search-tab active" data-tab="vin">Поиск по VIN</div>
+                <div class="unified-search-tab" data-tab="part">Поиск по номеру детали</div>
+            </div>
+            
+            <div class="unified-search-box">
+                <input type="text" class="unified-search-input" 
+                       placeholder="Введите VIN-номер для поиска совместимых запчастей">
+                <button class="unified-search-button">
+                    <i class="fas fa-search"></i>
+                    Найти
+                </button>
+            </div>
+            
+            <div class="unified-search-examples">
+                Примеры для поиска: LVVDB11B8BD000123, LZWADAGA7JD000456, 36/0021239
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--<div class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">175,913</div>
+                <div class="stat-label">ДОВОЛЬНЫХ КЛИЕНТОВ</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">190</div>
+                <div class="stat-label">СТРАН ДЛЯ ОТПРАВКИ</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">17,000,000</div>
+                <div class="stat-label">ЗАПЧАСТЕЙ В БАЗЕ ДАННЫХ</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2 дня</div>
+                <div class="stat-label">СРЕДНЯЯ ОТСЫЛКА</div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="brands">
+    <div class="container">
+        <h2 class="section-title">Китайские автомобильные марки</h2>
+        
+        <div class="brands-grid">
+            {% for brand in brands %}
+            <div class="brand-card" data-brand-id="{{ brand.id }}">
+                <div class="brand-logo">
+                    <img src="{{ url_for('static', filename='images/brands/' + brand.logo) }}" alt="{{ brand.name }}" onerror="this.src='https://via.placeholder.com/100x60?text={{ brand.name }}'">
+                </div>
+                <div class="brand-name">{{ brand.name }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchTabs = document.querySelectorAll('.unified-search-tab');
+        const searchInput = document.querySelector('.unified-search-input');
+        const searchButton = document.querySelector('.unified-search-button');
+        const brandCards = document.querySelectorAll('.brand-card');
+        
+        // Обработка переключения вкладок поиска
+        searchTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                searchTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const searchType = this.getAttribute('data-tab');
+                if (searchType === 'vin') {
+                    searchInput.placeholder = 'Введите VIN-номер для поиска совместимых запчастей';
+                    document.querySelector('.unified-search-examples').textContent = 'Примеры для поиска: LVVDB11B8BD000123, LZWADAGA7JD000456, 36/0021239';
+                } else {
+                    searchInput.placeholder = 'Введите номер детали для поиска';
+                    document.querySelector('.unified-search-examples').textContent = 'Пример: CH-TG-001, GL-CR-001, 36/0021239';
+                }
+            });
+        });
+        
+        // Обработка поиска
+        searchButton.addEventListener('click', function() {
+            const activeTab = document.querySelector('.unified-search-tab.active');
+            const searchType = activeTab.getAttribute('data-tab');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                if (searchType === 'vin') {
+                    window.location.href = "{{ url_for('search') }}?type=vin&q=" + encodeURIComponent(query);
+                } else {
+                    window.location.href = "{{ url_for('search') }}?type=part&q=" + encodeURIComponent(query);
+                }
+            }
+        });
+        
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+        
+        // Обработка клика по брендам
+        brandCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const brandId = this.getAttribute('data-brand-id');
+                window.location.href = "/brand/" + brandId;
+            });
+        });
+    });
+</script>
+{% endblock %}

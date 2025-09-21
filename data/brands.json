@@ -1,0 +1,62 @@
+[
+    {
+        "id": "chery",
+        "name": "Chery",
+        "logo": "chery.png",
+        "description": "Китайский производитель автомобилей, основанный в 1997 году"
+    },
+    {
+        "id": "geely",
+        "name": "Geely",
+        "logo": "geely.png",
+        "description": "Китайский автомобильный концерн, основанный в 1986 году"
+    },
+    {
+        "id": "greatwall",
+        "name": "Great Wall",
+        "logo": "greatwall.png",
+        "description": "Китайский производитель внедорожников и пикапов"
+    },
+    {
+        "id": "haval",
+        "name": "Haval",
+        "logo": "haval.png",
+        "description": "Суббренд Great Wall, специализирующийся на внедорожниках"
+    },
+    {
+        "id": "changan",
+        "name": "Changan",
+        "logo": "changan.png",
+        "description": "Один из крупнейших китайских автопроизводителей"
+    },
+    {
+        "id": "exeed",
+        "name": "Exeed",
+        "logo": "exeed.png",
+        "description": "Китайский производитель автомобилей и аккумуляторов"
+    },
+    {
+        "id": "jaecoo",
+        "name": "Jaecoo",
+        "logo": "jaecoo.png",
+        "description": "Китайский производитель коммерческих и легковых автомобилей"
+    },
+    {
+        "id": "omoda",
+        "name": "Omoda",
+        "logo": "omoda.png",
+        "description": "Китайский автопроизводитель, специализирующийся на коммерческих автомобилях"
+    },
+    {
+        "id": "voyah",
+        "name": "Voyah",
+        "logo": "voyah.png",
+        "description": "Первая китайская автомобильная компания, основанная в 1953 году"
+    },
+    {
+        "id": "zeekr",
+        "name": "Zeekr",
+        "logo": "zeekr.png",
+        "description": "Китайский государственный автопроизводитель"
+    }
+]
