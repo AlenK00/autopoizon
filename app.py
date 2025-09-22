@@ -306,7 +306,9 @@ if __name__ == '__main__':
     os.makedirs('static/images/brands', exist_ok=True)
 
     
-    port = int(os.environ.get('PORT', 5000))
+    #port = int(os.environ.get('PORT', 5000))
+    #app.run(host='0.0.0.0', port=port, debug=False)
+    port = int(os.environ.get('PORT', 8080))  # 8080 как fallback
     app.run(host='0.0.0.0', port=port, debug=False)
     
     # Запускаем приложение
