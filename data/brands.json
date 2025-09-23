@@ -58,5 +58,35 @@
         "name": "Zeekr",
         "logo": "zeekr.png",
         "description": "Китайский государственный автопроизводитель"
+    },
+    {
+        "id": "tank",
+        "name": "Tank",
+        "logo": "tank.png",
+        "description": "Китайский государственный автопроизводитель"
+    },
+    {
+        "id": "jetour",
+        "name": "Jetour",
+        "logo": "jt.png",
+        "description": "Китайский государственный автопроизводитель"
+    },
+    {
+        "id": "faw",
+        "name": "FAW",
+        "logo": "faw.png",
+        "description": "Китайский государственный автопроизводитель"
+    },
+    {
+        "id": "gac",
+        "name": "GAC",
+        "logo": "gac.png",
+        "description": "Китайский государственный автопроизводитель"
+    },
+    {
+        "id": "bestune",
+        "name": "Bestune",
+        "logo": "bestune.png",
+        "description": "Китайский государственный автопроизводитель"
     }
 ]
