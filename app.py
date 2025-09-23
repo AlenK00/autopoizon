@@ -298,12 +298,16 @@ def search_by_part_number(part_number):
     return [p for p in parts if part_number.lower() in p.get('part_number', '').lower()]
 
 if __name__ == '__main__':
+
     # Создаем папки, если их нет
     os.makedirs('data', exist_ok=True)
     os.makedirs('templates', exist_ok=True)
     os.makedirs('static/css', exist_ok=True)
     os.makedirs('static/js', exist_ok=True)
     os.makedirs('static/images/brands', exist_ok=True)
+
+    port = int(os.environ.get('PORT', 10000))  # Render использует порт 10000
+    app.run(host='0.0.0.0', port=port, debug=False)
 
     
     #port = int(os.environ.get('PORT', 5000))
@@ -314,4 +318,4 @@ if __name__ == '__main__':
     
     
     # Запускаем приложение
-    app.run(debug=True, port=5001)
+    #app.run(debug=True, port=5001)
